@@ -22,7 +22,7 @@ namespace VehicleStatusMicroservice.Controllers
         [HttpGet]
         public IActionResult GetAllvehicles()
         {
-            _logger.LogInformation("Received request: GET /api/customers");
+            _logger.LogInformation("Received request: GET /api/vehiclestatus");
             var vehciles = _vehicleStatusService.GetAllVehicles();
             _logger.LogInformation($"Sending response: {JsonConvert.SerializeObject(vehciles)}");
             return Ok(vehciles);
