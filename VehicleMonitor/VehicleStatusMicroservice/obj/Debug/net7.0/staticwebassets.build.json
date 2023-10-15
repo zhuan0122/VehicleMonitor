@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Ou5mvfQIm1nH6cQ2oQgsaUCn4lUv4Yo/3XcIO+ey7/w=",
+  "Source": "VehicleStatusMicroservice",
+  "BasePath": "_content/VehicleStatusMicroservice",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
