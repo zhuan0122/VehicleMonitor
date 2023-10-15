@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CustomerMicroService.Services;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CustomerMicroService.Controllers
 {
@@ -18,6 +19,7 @@ namespace CustomerMicroService.Controllers
         }
 
         [HttpGet]
+        [Authorize] // Requires authentication for this endpoint
         public IActionResult GetAllCustomers()
         {
             _logger.LogInformation("Received request: GET /api/customers");
@@ -27,6 +29,7 @@ namespace CustomerMicroService.Controllers
         }
 
         [HttpGet("{customerId}/vehicles")]
+        [Authorize] // Requires authentication for this endpoint
         public IActionResult GetVehiclesForCustomer(int customerId)
         {
             var vehicles = _customerVehicleService.GetVehiclesForCustomerId(customerId);

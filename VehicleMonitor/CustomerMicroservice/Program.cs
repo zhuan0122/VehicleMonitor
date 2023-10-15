@@ -1,14 +1,13 @@
 using CustomerMicroservice.Models;
 using CustomerMicroService.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-////builder.Services.AddScoped<CustomerVehicleService>();
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -30,16 +29,29 @@ else
     builder.Services.AddDbContext<VehicleMonitoringDbContext>(options => options.UseMySQL(connectionString));
 }
 
-//builder.Services.AddDbContext<VehicleMonitoringDbContext>(options =>
-//    options.UseMySQL(builder.Configuration.GetConnectionString("CustomerVehicle")));
-//builder.Services.AddDbContext<VehicleMonitoringDbContext>(options => options.UseMySQL("CustomerVehicle"));
-
 // Register CustomerVehicleService
 builder.Services.AddScoped<CustomerVehicleService>();
 
 builder.Services.AddScoped<VehicleMonitoringDbContext>();
 
-// ...
+//
+
+///Hardcoded secret key for testing purposes only
+var secretKey = "qwertyuiopasdfghjklzxcvbnm123456";
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key
+        };
+    });
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
