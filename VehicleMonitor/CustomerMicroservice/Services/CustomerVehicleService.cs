@@ -2,10 +2,11 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CustomerMicroservice.Models;
+using CustomerMicroservice.Services;
 
 namespace CustomerMicroService.Services
 {
-    public class CustomerVehicleService
+    public class CustomerVehicleService : ICustomerVehicleService
     {
         private readonly VehicleMonitoringDbContext _context;
 
@@ -27,6 +28,12 @@ namespace CustomerMicroService.Services
 
         public List<Vehicle> GetVehiclesForCustomerId(int customerId)
         {
+            // Ensure that the collections are not null before performing the join operation
+            if (_context.Vehicles == null || _context.Customers == null)
+            {
+                return new List<Vehicle>();
+            }
+
             var query = from vehicle in _context.Vehicles
                         join customer in _context.Customers
                         on vehicle.CustomerId equals customer.CustomerId

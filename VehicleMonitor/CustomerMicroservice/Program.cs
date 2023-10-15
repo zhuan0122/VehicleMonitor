@@ -1,4 +1,5 @@
 using CustomerMicroservice.Models;
+using CustomerMicroservice.Services;
 using CustomerMicroService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +31,7 @@ else
 }
 
 // Register CustomerVehicleService
-builder.Services.AddScoped<CustomerVehicleService>();
+builder.Services.AddScoped<ICustomerVehicleService, CustomerVehicleService>();
 
 builder.Services.AddScoped<VehicleMonitoringDbContext>();
 
