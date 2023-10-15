@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using System.Text.Json.Serialization;
 using VehicleStatusMicroservice.Models;
 using VehicleStatusMicroService.Services;
@@ -16,6 +19,23 @@ builder.Services.AddSwaggerGen();
 // Add DbContext to the DI container
 builder.Configuration.GetConnectionString("VehicleStatus");
 var connectionString = builder.Configuration.GetConnectionString("VehicleStatus");
+
+///Hardcoded secret key for testing purposes only
+var secretKey = "qwertyuiopasdfghjklzxcvbnm123456";
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key
+        };
+    });
 
 if (string.IsNullOrEmpty(connectionString))
 {
