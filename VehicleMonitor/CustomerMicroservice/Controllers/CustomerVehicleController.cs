@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using CustomerMicroService.Services;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using CustomerMicroservice.Services;
 
-namespace CustomerMicroService.Controllers
+namespace CustomerMicroservice.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

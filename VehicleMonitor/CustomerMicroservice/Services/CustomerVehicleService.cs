@@ -2,9 +2,8 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using CustomerMicroservice.Models;
-using CustomerMicroservice.Services;
 
-namespace CustomerMicroService.Services
+namespace CustomerMicroservice.Services
 {
     public class CustomerVehicleService : ICustomerVehicleService
     {

@@ -1,6 +1,5 @@
 using CustomerMicroservice.Models;
 using CustomerMicroservice.Services;
-using CustomerMicroService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

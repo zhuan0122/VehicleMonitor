@@ -1,4 +1,4 @@
-﻿namespace VehicleStatusMicroService.ViewModels
+﻿namespace VehicleStatusMicroservice.ViewModels
 {
     public class VehicleStatusViewModel
     {

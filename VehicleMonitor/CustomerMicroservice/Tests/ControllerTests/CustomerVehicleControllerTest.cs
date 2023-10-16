@@ -1,12 +1,11 @@
 ﻿using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
-using CustomerMicroService.Controllers;
-using CustomerMicroService.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using CustomerMicroservice.Models;
 using CustomerMicroservice.Services;
+using CustomerMicroservice.Controllers;
 
 namespace CustomerMicroservice.Tests.ControllerTests
 {

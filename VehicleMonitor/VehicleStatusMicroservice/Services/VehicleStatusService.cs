@@ -2,11 +2,12 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using VehicleStatusMicroservice.Models;
-using VehicleStatusMicroService.ViewModels;
+using VehicleStatusMicroservice.Services;
+using VehicleStatusMicroservice.ViewModels;
 
-namespace VehicleStatusMicroService.Services
+namespace VehicleStatusMicroservice.Services
 {
-    public class VehicleStatusService
+    public class VehicleStatusService : IVehicleStatusService
     {
         private readonly VehicleStatusDbContext _context;
 
@@ -15,13 +16,13 @@ namespace VehicleStatusMicroService.Services
             _context = context;
         }
 
-        public List<Vehicle> GetAllVehicles()
-        {
-            return _context.Vehicles.ToList();
-        }
-
         public List<VehicleStatusViewModel> GetAllVehiclesWithStatus()
         {
+            if (_context.Vehicles == null || _context.Vehiclestatuses == null)
+            {
+                return new List<VehicleStatusViewModel>();
+            }
+
             var query = from vehicle in _context.Vehicles
                         join vehicleStatus in _context.Vehiclestatuses
                         on vehicle.VehicleId equals vehicleStatus.VehicleId
@@ -38,6 +39,11 @@ namespace VehicleStatusMicroService.Services
 
         public List<Vehicle> GetVehiclesWithStatus(string status)
         {
+            if (_context.Vehicles == null || _context.Vehiclestatuses == null)
+            {
+                return new List<Vehicle>();
+            }
+
             var query = from vehicle in _context.Vehicles
                         join vehicleStatus in _context.Vehiclestatuses
                         on vehicle.VehicleId equals vehicleStatus.VehicleId
@@ -49,6 +55,11 @@ namespace VehicleStatusMicroService.Services
 
         public List<Vehicle> GetVehiclesWithStatusId(int statusId)
         {
+            if (_context.Vehicles == null || _context.Vehiclestatuses == null)
+            {
+                return new List<Vehicle>();
+            }
+
             var query = from vehicle in _context.Vehicles
                         join vehicleStatus in _context.Vehiclestatuses
                         on vehicle.VehicleId equals vehicleStatus.VehicleId
