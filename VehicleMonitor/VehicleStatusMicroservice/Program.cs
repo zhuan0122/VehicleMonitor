@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 using VehicleStatusMicroservice.Models;
-using VehicleStatusMicroService.Services;
+using VehicleStatusMicroservice.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,7 +48,7 @@ else
     builder.Services.AddDbContext<VehicleStatusDbContext>(options => options.UseMySQL(connectionString));
 }
 
-builder.Services.AddScoped<VehicleStatusService>();
+builder.Services.AddScoped<IVehicleStatusService, VehicleStatusService>();
 
 builder.Services.AddScoped<VehicleStatusDbContext>();
 
